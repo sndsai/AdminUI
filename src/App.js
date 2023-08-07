@@ -5,7 +5,7 @@ const rowsPerPage = 10;
 const App = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
-  const [usersData, setUsersData] = useState([]); // Declare usersData as state
+  const [usersData, setUsersData] = useState([]);
 
   const totalPages = Math.ceil(usersData.length / rowsPerPage);
 
@@ -35,13 +35,6 @@ const App = () => {
     setCurrentPage(1);
   };
 
-  const filteredUsers = usersData.filter(
-    (user) =>
-      user.id.toString().includes(searchQuery) ||
-      user.name.toLowerCase().includes(searchQuery) ||
-      user.email.toLowerCase().includes(searchQuery)
-  );
-
   const fetchUsers = async () => {
     try {
       const response = await fetch(
@@ -67,6 +60,14 @@ const App = () => {
         onChange={handleSearch}
       />
       <table>
+        <thead>
+          <tr>
+            <th></th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
         <tbody>{updateTable()}</tbody>
       </table>
       <div>
